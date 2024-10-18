@@ -2,11 +2,13 @@ package model;
 
 public class Pillar {
 
-    private String name;
+    private String nameP;
+    private int numeroProjects;
     private Project[] projects;
 
-    public Pillar(String name) {
-        this.name = name;
+    public Pillar(String nameP) {
+        this.nameP = nameP;
+        this.numeroProjects = 0;
         projects = new Project[50];
     }
 
@@ -22,7 +24,32 @@ public class Pillar {
      */
     public boolean registerProject(Project newProject) {
 
-        return false;
+        if (numeroProjects < 50) {
+            projects[numeroProjects++] = newProject;
+            return true; // si se añadió
+        }
+        return false; // ya no hay espacio para más
+    }
+
+    public String getNameP() {
+        return nameP;
+    }
+
+    public void setNameP(String nameP) {
+        this.nameP = nameP;
+    }
+
+    public int getnumeroProjects() {
+        int contadorProjects = 0;
+        
+        
+        for (int i = 0; i < projects.length; i++) {
+            if (projects[i] != null) {
+                contadorProjects++;
+            }
+        }
+        
+        return contadorProjects;
     }
 
     /**
@@ -35,8 +62,22 @@ public class Pillar {
 
         String list = "";
 
+        boolean hayProject = false;
+        for (int i = 0; i < projects.length; i++) {
+            if (projects[i] != null) {
+                list="- " + projects[i].getId() + " Nombre: " + projects[i].getName() + ", Estado: " + projects[i].getStatus();
+                hayProject = true;
+            }
+        }
+        if (!hayProject) {
+            list="No hay projectos registrados asociados al pillar.";
+        }
+
+
         return list;
     }
+
+ 
 
 
 }
